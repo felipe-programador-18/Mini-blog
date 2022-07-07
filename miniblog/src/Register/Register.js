@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import { useAutentication } from '../hoock/useAuthentication'
+import  styles from './register.module.css'
 
-import './register.module.css'
 const Register =  () => {
  const [displayName, setdisplayName ] = useState("")
  const [email, setEmail] = useState("")
@@ -40,7 +40,7 @@ const Register =  () => {
   },[authError])
 
 
-  return ( <div>
+  return ( <div className={styles.register} >
        <h1>Cadastre-se para postar dicas!</h1>
 
        <p>Crie seu usuário e compartilhe suas experiências !</p>
