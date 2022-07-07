@@ -1,15 +1,19 @@
 import React,{useState, useEffect} from 'react'
+import { useAutentication } from '../hoock/useAuthentication'
 
 import './register.module.css'
-const Register = () => {
+const Register =  () => {
  const [displayName, setdisplayName ] = useState("")
  const [email, setEmail] = useState("")
  const [password, setPassword] = useState("")
  const [confirmPassword, setConfirmPassword] = useState("")
  const [error, setError] = useState("")
+  
+ // this properties is destructment about my persolaties hoock!
+ const {createUser,error:authError, loading} = useAutentication()
  
  // this care about send date!
- const handlingSubmit = (e) => {
+ const handlingSubmit = async (e) => {
     e.preventDefault()
     setError("")
 
@@ -18,13 +22,22 @@ const Register = () => {
         email,
         password,
     }
-
     if(password !== confirmPassword){
         setError("A senha precisam ser iguais!!")
      return
     }
-   console.log(user)
+    
+    const res = await  createUser(user)
+    
+    console.log(user)
+
  }
+ //need verify about my setError change!!  
+  useEffect(() => {
+     if(authError){
+        setError(authError)
+     }
+  },[authError])
 
 
   return ( <div>
@@ -71,9 +84,14 @@ const Register = () => {
              value={confirmPassword} 
              onChange={(e) => setConfirmPassword(e.target.value) }    />
           </label>
-          <button className='btn' >Cadastrar</button>
+          
+           {!loading && <button className='btn' >Cadastrar</button> }
+           
+           {loading && (<button className='btn' disabled >
+            Aguarde .... 
+           </button>) }
 
-          {error && <p className='error' > error here {error} </p>}
+          {error && <p className='error' > {error} </p>}
 
        </form>
 
