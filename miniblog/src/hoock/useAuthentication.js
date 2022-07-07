@@ -4,7 +4,7 @@ import {getAuth,
     createUserWithEmailAndPassword,
     singInWithEmailAndPassword,
     updateProfile,
-    singOut
+    signOut
  } from 'firebase/auth'
 
  export const useAutentication = () => {
@@ -22,7 +22,8 @@ import {getAuth,
      }
     }
 
-
+    
+   // this is register 
    const createUser = async (data) => {
      checkIfisCancelled()
 
@@ -58,13 +59,20 @@ import {getAuth,
       }
   
    }
+   // logout --sing out
+   const logout = () => {
+      
+      checkIfisCancelled()
+      signOut(auth)
+   }
+   
    
    // this verify function !!
    useEffect(() => {
     return () => checkIfisCancelled(true)
    },[])
 
-  return {auth, createUser, error, loading}
+  return {auth, createUser, error, loading, logout }
   
 
 }
