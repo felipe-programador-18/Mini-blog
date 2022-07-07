@@ -1,12 +1,19 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react'
 import './App.css';
 import Footer from './Componentes/Footer';
 import Navbar from './Componentes/Navbar';
-import Login from './Login/login';
 import About from './Pages/About/about';
 import Home from './Pages/Home/home';
+
+
+import Login from './Login/login';
 import Register from './Register/Register';
+import { useAutentication } from './hoock/useAuthentication';
+import { onAuthStateChanged } from 'firebase/auth';
 import { AuthProvider } from './context/Authcontext';
+import CreatePost from './Pages/Createpost/createpost';
+import Dashboard from './Pages/Dashboards/dashboards';
 
 
 
@@ -15,9 +22,27 @@ import { AuthProvider } from './context/Authcontext';
 
 
 function App() {
+  const [user, setUser] = useState(undefined)
+  const {auth} = useAutentication()
+  const loadingUser = user === undefined
+  
+  console.log('testet here', user)
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUser(user)
+    })
+  },[auth])
+ 
+  if(loadingUser){
+    return <p>Loading ....</p>
+  }
+
+
+
+
   return (
     <div className="App">
-    <AuthProvider>
+    <AuthProvider value={{user}} >
      <BrowserRouter>
       <Navbar/> 
        <div className='container' >
@@ -26,6 +51,9 @@ function App() {
           <Route path='/about'  element={<About/>} /> 
           <Route path='/register' element={ <Register/> }  />
           <Route path='/login'  element={ <Login/> } /> 
+
+          <Route path='/posts/create' element={<CreatePost/>}  />
+          <Route path='/dashboard' element={<Dashboard/>} />
 
         </Routes>
        </div>
