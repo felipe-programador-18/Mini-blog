@@ -2,9 +2,9 @@ import {db} from '../Callfirebase/firebase'
 import  {useState, useEffect} from 'react'
 import {getAuth,
     createUserWithEmailAndPassword,
-    singInWithEmailAndPassword,
     updateProfile,
-    signOut
+    signOut,
+    signInWithEmailAndPassword
  } from 'firebase/auth'
 
  export const useAutentication = () => {
@@ -64,15 +64,41 @@ import {getAuth,
       
       checkIfisCancelled()
       signOut(auth)
+      console.log("SAIU DO SISTEMA")
    }
    
+  //login sign in 
+   const login = async (data) =>  {
+      checkIfisCancelled()
+      setLoading(true)
+      setError(false)
+      console.log("ENTROU NO SISTEMA!")
+      try {
+       await signInWithEmailAndPassword(auth,data.email, data.password)
+       setLoading(false) 
+      } catch (error) {
+         let systemErrorUser ;
+         
+         if(error.message.includes("user-not-found")){
+            systemErrorUser = "Usuário não encontrado!"
+         } else if (error.message.includes("wrong-password")){
+           systemErrorUser = "Senha Incorreta!"
+         } else{
+           systemErrorUser = "Ocorreu um erro, tente mais tarde !" 
+         }
+         setError(systemErrorUser)
+         setLoading(false)
+      }
+
+   }
+
    
    // this verify function !!
    useEffect(() => {
     return () => checkIfisCancelled(true)
    },[])
 
-  return {auth, createUser, error, loading, logout }
+  return {auth, createUser, error, loading, logout , login }
   
 
 }
