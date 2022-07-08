@@ -10,7 +10,7 @@ const Login = () => {
  const [error, setError] = useState("")
   
  // this properties is destructment about my persolaties hoock!
- const {createUser,error:authError, loading} = useAutentication()
+ const {login,error:authError, loading} = useAutentication()
  
  // this care about send date!
  const handlingSubmit = async (e) => {
@@ -21,7 +21,7 @@ const Login = () => {
         password,
     }
    
-    const res = await  createUser(user)
+    const res = await login(user)
     
     console.log(user)
 
