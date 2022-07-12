@@ -36,7 +36,7 @@ const Home = () => {
       
       <div>
         {loading && <p>Carregando .....</p> }
-        { posts && posts.map((post) => ( <p> {post.title} </p> ))}
+        { posts && posts.map((post) => ( <p> test title {post.title} </p> ))}
         
        {/* {posts && posts.map((post) => <PostDetails key={post.id} post={post} /> )}
            */ } 

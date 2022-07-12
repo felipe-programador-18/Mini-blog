@@ -10,7 +10,7 @@ import { collection,
 
 
 
-export const useFecthingDocuments = (docCollection, search=null, uid=null) =>{
+export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
   
   const [documents,setDocument] = useState(null)
   const [error, setError] = useState(null)  
@@ -35,18 +35,18 @@ export const useFecthingDocuments = (docCollection, search=null, uid=null) =>{
          q = await  query(collectionRef, orderBy("createdAt","desc"))
         
        // onsnapshot server to map my date!!! 
-        await onSnapshot(q, (QuerySnapshot ) => {
-        setDocument(
-             QuerySnapshot.docs.map((doc) => ({
+       await onSnapshot(q, (querySnapshot ) => {
+           
+           setDocument(
+             querySnapshot.docs.map((doc) => ({
                 id: doc.id,
-                ...doc.date(),
+                ...doc.data(),
             }) )
-         )
-   
+         );
        })
 
-        
-      setLoading(false)
+       setLoading(false)
+
      } catch (error) {
         console.log('error here',error)
         setError(error.message)
@@ -54,15 +54,15 @@ export const useFecthingDocuments = (docCollection, search=null, uid=null) =>{
     }
    }
     LoadData();
-  },[docCollection, search, uid, cancelled])
+  },[docCollection, search, uid, cancelled]);
    
 
-   useEffect(() => {
-    return () => setCancelled(true)
-   },[])
-   console.log("teste in the usefecthin", documents)
-   return {documents, loading, error };
-}
+    useEffect(() => {
+      return () => setCancelled(true)
+    },[])
+    console.log("teste in the usefecthin", documents)
+    return {documents, loading, error };
+};
 
 
 
