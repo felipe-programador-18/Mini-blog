@@ -24,7 +24,6 @@ const CreatePost = () => {
 
     //create array of tag
     const tagsArreys = tags.split(",").map((tag) =>  tag.trim().toLowerCase());
-     
     if(!title || !image || !tags || !body){
       setFormError("Por favor, preencha todos os campos.")
     }
@@ -36,14 +35,15 @@ const CreatePost = () => {
       setFormError("A imagem precisa ser uma URL!")
     }
     if(formError) return;
-   
+    
+
     insertDocument({
      title, 
      image,
      body ,
-     tagsArreys,
+     tags:tagsArreys,
      uid:user.uid,
-     createdBy: user.displayName
+     createdBy: user.displayName,
     })
    
     //reminder latter redirect to home page!!
