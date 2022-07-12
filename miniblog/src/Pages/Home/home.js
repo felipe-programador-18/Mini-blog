@@ -2,14 +2,19 @@ import React, {useState} from 'react'
 import styles from  "./home.module.css"
 
 import { useNavigate, Link } from 'react-router-dom'
+import { useFecthingDocuments } from '../../hoock/useFecthingdocuments'
 
+
+//components
+import PostDetails from '../../Componentes/PostDetails'
 
 
 
 const Home = () => {
+    const {documents:posts, loading}  = useFecthingDocuments("posts")
     const [query, setQuery] = useState('')
-    const [posts] = useState([])
     
+    console.log('teste in the post home',posts)
     
     const handSubmit = (e) => {
         e.preventDefault()
@@ -30,14 +35,27 @@ const Home = () => {
       
       
       <div>
-        <h1>Posts...</h1>
+        {loading && <p>Carregando .....</p> }
+        { posts && posts.map((post) => ( <p> {post.title} </p> ))}
+        
+       {/* {posts && posts.map((post) => <PostDetails key={post.id} post={post} /> )}
+           */ } 
+        
+        
         {posts && posts.length === 0 && (
             <div className={styles.nopost}>
             <p> Não foram encontrados posts. </p>
             
             <Link to='/posts/create'  className='btn' > Crie seu Primeiro Post. </Link>
             </div>
-        )  }
+        ) }
+
+           
+
+           
+            {/* <PostDetails key={post.id} post={post} /> */}
+           
+           
       </div>
     
     </div>
