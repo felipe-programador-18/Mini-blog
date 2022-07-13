@@ -6,7 +6,10 @@ import { collection,
      orderBy,
      onSnapshot, 
      where,
+     getDocs,
+    
      } from 'firebase/firestore'
+
 
 
 
@@ -27,40 +30,51 @@ export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
      if(cancelled) return;
      setLoading(true)
      //here receive reffered of collection
-     const collectionRef = await collection (db,docCollection )      
      
-     try {
-        let q ;  
+   // const querySnapshot = await getDocs(collection(db, docCollection));
+     //querySnapshot.forEach((doc) => {
+      //console.log(doc.id, JSON.stringify(doc.data()) )
+     //})
+     
+     const collectionRef = await collection(db,docCollection )      
+     console.log("test", collectionRef)
+      
+      
+      try {
+      //let q ;  
 
-         q = await  query(collectionRef, orderBy("createdAt","desc"))
-        
-       // onsnapshot server to map my date!!! 
-       await onSnapshot(q, (querySnapshot ) => {
-           
-           setDocument(
-             querySnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }) )
-         );
-       })
+       //q = await  query(collectionRef, orderBy("createdAt","desc"))
+       
+     // onsnapshot server to map my date!!! 
+       const querySnapshot = await getDocs(collection(db, docCollection));
+        setDocument(
+          querySnapshot.docs.map((doc) => ({
+            id: doc.id, ...doc.data(),
+          }) )
+        ) 
 
-       setLoading(false)
+       //querySnapshot.docs.map((doc) => (
+        //setDocument(doc.id, doc.data())
+      // ));
+        //setDocument(doc.id, doc.data(),)
+       
 
-     } catch (error) {
-        console.log('error here',error)
-        setError(error.message)
-        setLoading(false)
-    }
+      setLoading(false);
+
+   } catch (error) {
+      console.log('error here',error)
+      setError(error.message)
+      setLoading(false)
    }
-    LoadData();
-  },[docCollection, search, uid, cancelled]);
-   
+  }
+       LoadData();
+ },[docCollection, search, uid, cancelled]);
+      
 
     useEffect(() => {
       return () => setCancelled(true)
     },[])
-    console.log("teste in the usefecthin", documents)
+ 
     return {documents, loading, error };
 };
 

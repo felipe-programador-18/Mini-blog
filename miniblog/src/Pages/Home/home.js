@@ -13,8 +13,8 @@ import PostDetails from '../../Componentes/PostDetails'
 const Home = () => {
     const {documents:posts, loading}  = useFecthingDocuments("posts")
     const [query, setQuery] = useState('')
-    
-    console.log('teste in the post home',posts)
+     
+    console.log ("what have here?", posts )
     
     const handSubmit = (e) => {
         e.preventDefault()
@@ -36,25 +36,18 @@ const Home = () => {
       
       <div>
         {loading && <p>Carregando .....</p> }
-        { posts && posts.map((post) => ( <p> test title {post.title} </p> ))}
         
-       {/* {posts && posts.map((post) => <PostDetails key={post.id} post={post} /> )}
-           */ } 
-        
-        
+
+        {posts && posts.map((post) => <PostDetails key={post.id} post={post} /> ) }
+       
         {posts && posts.length === 0 && (
-            <div className={styles.nopost}>
+          <div className={styles.nopost}>
             <p> Não foram encontrados posts. </p>
             
             <Link to='/posts/create'  className='btn' > Crie seu Primeiro Post. </Link>
             </div>
         ) }
-
-           
-
-           
-            {/* <PostDetails key={post.id} post={post} /> */}
-           
+  
            
       </div>
     
