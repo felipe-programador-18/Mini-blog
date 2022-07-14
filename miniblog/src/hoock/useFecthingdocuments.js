@@ -13,6 +13,7 @@ import { collection,
 
 
 
+
 export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
   
   const [documents,setDocument] = useState(null)
@@ -31,34 +32,24 @@ export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
      setLoading(true)
      //here receive reffered of collection
      
-   // const querySnapshot = await getDocs(collection(db, docCollection));
-     //querySnapshot.forEach((doc) => {
-      //console.log(doc.id, JSON.stringify(doc.data()) )
-     //})
-     
-     const collectionRef = await collection(db,docCollection )      
-     console.log("test", collectionRef)
-      
-      
+     const collectionRef = await query(collection(db,docCollection))     
+     console.log("test about collection", collectionRef)
+     //const querySnapshot = await getDocs(collection(db, docCollection)) 
       try {
-      //let q ;  
-
-       //q = await  query(collectionRef, orderBy("createdAt","desc"))
-       
-     // onsnapshot server to map my date!!! 
-       const querySnapshot = await getDocs(collection(db, docCollection));
-        setDocument(
+      let q ;  
+      q = await  query(collectionRef, orderBy("createdAt","desc"))
+     
+      // onsnapshot server to map my date!!! 
+      const querySnapshot = await getDocs(collection(db, docCollection));
+       setDocument(
           querySnapshot.docs.map((doc) => ({
             id: doc.id, ...doc.data(),
           }) )
-        ) 
+         )
+         console.log("test query", querySnapshot)
+        
 
-       //querySnapshot.docs.map((doc) => (
-        //setDocument(doc.id, doc.data())
-      // ));
-        //setDocument(doc.id, doc.data(),)
        
-
       setLoading(false);
 
    } catch (error) {
@@ -74,7 +65,7 @@ export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
     useEffect(() => {
       return () => setCancelled(true)
     },[])
- 
+    
     return {documents, loading, error };
 };
 

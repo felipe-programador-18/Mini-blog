@@ -14,7 +14,6 @@ const Home = () => {
     const {documents:posts, loading}  = useFecthingDocuments("posts")
     const [query, setQuery] = useState('')
      
-    console.log ("what have here?", posts )
     
     const handSubmit = (e) => {
         e.preventDefault()
