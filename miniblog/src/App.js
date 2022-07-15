@@ -14,6 +14,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { AuthProvider } from './context/Authcontext';
 import CreatePost from './Pages/Createpost/createpost';
 import Dashboard from './Pages/Dashboards/dashboards';
+import SearchDates from './Pages/Search/search';
 
 
 
@@ -48,7 +49,9 @@ function App() {
        <div className='container' >
         <Routes>
           <Route path='/' element={<Home/>}  />
-          <Route path='/about'  element={<About/>} /> 
+          <Route path='/about'  element={<About/>} />
+           
+          <Route path='/search'  element={<SearchDates/>} /> 
           
           <Route path='/register' element={ !user ? <Register/> : <Navigate to='/' />  }  />
           
