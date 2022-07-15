@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styles from  "./home.module.css"
 
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link} from 'react-router-dom'
 import { useFecthingDocuments } from '../../hoock/useFecthingdocuments'
 
 
@@ -14,11 +14,16 @@ const Home = () => {
     const {documents:posts, loading}  = useFecthingDocuments("posts")
     const [query, setQuery] = useState('')
      
-    
-    const handSubmit = (e) => {
+   const navigate = useNavigate() 
+
+   const handSubmit = (e) => {
         e.preventDefault()
 
-    }
+       if(query){
+        return navigate(`/search?q=${query}`)
+       }
+    
+    } 
     
     return(
     <div  className={styles.home}>
