@@ -3,10 +3,10 @@ import{useState, useEffect} from 'react'
 import { db } from '../Callfirebase/firebase'
 import { collection,
      query,
-     orderBy,
-     onSnapshot, 
+     orderBy, 
      where,
      getDocs,
+     limit
     
      } from 'firebase/firestore'
 
@@ -32,20 +32,26 @@ export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
      setLoading(true)
      //here receive reffered of collection
      
-     const collectionRef = await query(collection(db,docCollection))     
+     const collectionRef = query(collection(db,docCollection))     
      console.log("test about collection", collectionRef)
-     //const querySnapshot = await getDocs(collection(db, docCollection)) 
-      try {
-      let q ;  
-      q = await  query(collectionRef, orderBy("createdAt","desc"))
      
-      // onsnapshot server to map my date!!! 
-      const querySnapshot = await getDocs(collection(db, docCollection));
-       setDocument(
-          querySnapshot.docs.map((doc) => ({
+     try {
+      let q ;
+       q = await  query(collectionRef)
+             
+      if(search){
+        q= await query(collectionRef, where("tags",'array-contains', search), orderBy("createdAt","desc") )
+      }else{
+        q = await query(collectionRef)
+      }
+       
+      const querySnapshot = await getDocs(q,orderBy("createdAt","desc"));
+      
+      setDocument(
+          querySnapshot.docs.map(((doc) => ({
             id: doc.id, ...doc.data(),
           }) )
-         )
+      ))
          console.log("test query", querySnapshot)
         
 
