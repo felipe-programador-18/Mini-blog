@@ -6,13 +6,15 @@ import { useFecthingDocuments } from '../../hoock/useFecthingdocuments'
 import { useQuerySearch } from '../../hoock/useQuery'
 
 const SearchDates = () => {
-    const query =  useQuerySearch()
-    const {search} = query.get("q")
-  console.log("testing about search", search)
-   return (<div>
+   const query =  useQuerySearch()
+   const search = query.get("q")
+   console.log("testing about search", search)
+   
+   return (
+   <div>
       <h2>Search</h2> 
-      {search} 
-  
+       <p> {search} </p> 
+      
    </div>)
 
 }
