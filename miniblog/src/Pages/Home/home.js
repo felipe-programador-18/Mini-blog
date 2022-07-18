@@ -11,8 +11,8 @@ import PostDetails from '../../Componentes/PostDetails'
 
 
 const Home = () => {
-    const {documents:posts, loading}  = useFecthingDocuments("posts")
-    const [query, setQuery] = useState('')
+   const [query, setQuery] = useState('')
+   const {documents:posts, loading}  = useFecthingDocuments("posts")
      
    const navigate = useNavigate() 
 
