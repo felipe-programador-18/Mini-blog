@@ -23,7 +23,7 @@ const CreatePost = () => {
     setFormError("")
 
     //create array of tag
-    const tagsArreys = tags.split(",").map((tag) =>  tag.trim().toLowerCase());
+    const tagsArrays = tags.split(",").map((tag) =>  tag.trim().toLowerCase());
     if(!title || !image || !tags || !body){
       setFormError("Por favor, preencha todos os campos.")
     }
@@ -41,7 +41,7 @@ const CreatePost = () => {
      title, 
      image,
      body ,
-     tags:tagsArreys,
+     tags:tagsArrays,
      uid:user.uid,
      createdBy: user.displayName,
     })

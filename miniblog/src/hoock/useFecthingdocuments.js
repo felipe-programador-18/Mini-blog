@@ -6,11 +6,10 @@ import { collection,
      orderBy, 
      where,
      getDocs,
-     limit
+     limit,
+     doc
     
      } from 'firebase/firestore'
-
-
 
 
 
@@ -25,58 +24,57 @@ export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
   const [cancelled, setCancelled] = useState(false)
 
   useEffect(() => {
-    
-    
     const LoadData = async () => {
-     if(cancelled) return;
-     setLoading(true)
-     //here receive reffered of collection
+      if(cancelled) return;
+      setLoading(true)
+      //here receive reffered of collection
      
-     const collectionRef = query(collection(db,docCollection))     
-     console.log("test about collection", collectionRef)
-     
-     try {
-      let q ;
-      q = await  query(collectionRef)
-      
-      if(search){
-        q= await query(collectionRef, where("tags",'array-contains', search), orderBy("createdAt","desc") )
-        
-      }else{
-       // q = await query(collectionRef, orderBy("createdAt", "desc"))
+      const collectionRef = await query(collection(db, docCollection));   
+      console.log('test in on coll', collectionRef)
+ 
+  
+      try {
+       let q ;
        q = await query(collectionRef)
-      }
-        console.log("here verify about search", search)
-      const querySnapshot = await getDocs(q,orderBy("createdAt","desc"));
-      
-      setDocument(
-          querySnapshot.docs.map(((doc) => ({
-            id: doc.id, ...doc.data(),
-          }) )
-      ))
-         console.log("test query", querySnapshot)
-        
-
        
-      setLoading(false);
-
-   } catch (error) {
-      console.log('error here',error)
-      setError(error.message)
-      setLoading(false)
+         
+      if(search){
+        q= await query(collectionRef ,where("tags",'array-contains', search), orderBy("createdAt","desc"))
+        console.log('what have here, IF',search)
+        
+      } else{
+        q = await query(collectionRef)
+        console.log('what have here, ELSE',search)
+      }
+       
+        
+        const querySnapshot = await getDocs(q)
+       
+        console.log("search querysearch", querySnapshot)    
+          setDocument(
+                querySnapshot.docs.map(((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+             }) )
+          ))
+           
+ 
+       setLoading(false)
+        
+    } catch (error) {
+       console.log('error here',error)
+       setError(error.message)
+       setLoading(false)
+    }
    }
-  }
-       LoadData();
- },[docCollection, search, uid, cancelled]);
-      
-
-    useEffect(() => {
-      return () => setCancelled(true)
-    },[])
-    
-    return {documents, loading, error };
-};
-
-
-
-
+        LoadData();
+  },[docCollection, search, uid, cancelled]);
+       
+ 
+     useEffect(() => {
+       return () => setCancelled(true)
+     },[])
+     
+     return {documents, loading, error };
+ };
+ 

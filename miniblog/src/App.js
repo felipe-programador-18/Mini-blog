@@ -21,7 +21,6 @@ import SearchDates from './Pages/Search/search';
 
 
 
-
 function App() {
   const [user, setUser] = useState(undefined)
   const {auth} = useAutentication()
@@ -46,12 +45,15 @@ function App() {
     <AuthProvider value={{user}} >
      <BrowserRouter>
       <Navbar/> 
+      
+
        <div className='container' >
         <Routes>
           <Route path='/' element={<Home/>}  />
           <Route path='/about'  element={<About/>} />
            
           <Route path='/search'  element={<SearchDates/>} /> 
+              
           
           <Route path='/register' element={ !user ? <Register/> : <Navigate to='/' />  }  />
           
