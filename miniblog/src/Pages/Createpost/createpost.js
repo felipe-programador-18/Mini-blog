@@ -21,9 +21,10 @@ const CreatePost = () => {
    const handlingSubmit = (e) => {
     e.preventDefault()
     setFormError("")
-
     //create array of tag
     const tagsArrays = tags.split(",").map((tag) =>  tag.trim().toLowerCase());
+    
+  
     if(!title || !image || !tags || !body){
       setFormError("Por favor, preencha todos os campos.")
     }

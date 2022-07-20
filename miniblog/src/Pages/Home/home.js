@@ -20,7 +20,7 @@ const Home = () => {
         e.preventDefault()
 
        if(query){
-        return navigate(`/search?q=${query}`)
+        return navigate(`/search/?q=${query}`)
        }
     
     } 
