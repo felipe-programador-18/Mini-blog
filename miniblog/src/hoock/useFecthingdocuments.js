@@ -29,25 +29,21 @@ export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
       setLoading(true)
       //here receive reffered of collection
      
-      const collectionRef = await query(collection(db, docCollection));   
+      const collectionRef =  query(collection(db, docCollection));   
       console.log('test in on coll', collectionRef)
  
   
       try {
        let q ;
-       q = await query(collectionRef)
+       q =  query(collectionRef)
        
-         
+         //array-contains
       if(search){
-        q= await query(collectionRef ,where("tags",'array-contains', search), orderBy("createdAt","desc"))
+        q= query(collectionRef ,where("tags","array-contains", search), orderBy("createdAT","desc"))
         console.log('what have here, IF',search)
         
-      } else{
-        q = await query(collectionRef)
-        console.log('what have here, ELSE',search)
       }
        
-        
         const querySnapshot = await getDocs(q)
        
         console.log("search querysearch", querySnapshot)    
