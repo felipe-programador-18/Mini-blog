@@ -1,5 +1,5 @@
 import React from 'react'
-//import styles from './search.module.css'
+import styles from './search.module.css'
 //imported hoock
 import { useFecthingDocuments } from '../../hoock/useFecthingdocuments'
 import { useQuerySearch } from '../../hoock/useQuery'
@@ -17,14 +17,14 @@ const SearchDates = () => {
 
 
    return (
-   <div>
+   <div className={styles.search_container} >
       <h2>Search</h2> 
       <div>
          {posts&& posts.length === 0 && (
-            <>
-            <p>Não foram encontrados nada na sua pesquisa</p>
+            <div className={styles.no_posts}>
+            <p>Não foram encontrados nada na sua pesquisa...</p>
             <Link to={"/"} className="btn btn-dark" >Voltar</Link>
-            </>
+            </div>
          )}
          
          
