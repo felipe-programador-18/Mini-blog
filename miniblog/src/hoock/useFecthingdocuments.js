@@ -5,10 +5,7 @@ import { collection,
      query,
      orderBy, 
      where,
-     getDocs,
-     limit,
-     doc
-    
+     getDocs
      } from 'firebase/firestore'
 
 
@@ -41,7 +38,8 @@ export const useFecthingDocuments =(docCollection,search=null,uid=null) =>{
       if(search){
         q= query(collectionRef ,where("tags","array-contains", search), orderBy("createdAT","desc"))
         console.log('what have here, IF',search)
-        
+      } else if(uid){
+        q= query(collectionRef ,where("uid" ,"==",uid), orderBy("createdAT","desc"))
       }
        
         const querySnapshot = await getDocs(q)
