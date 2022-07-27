@@ -105,6 +105,9 @@ const EditPost = () => {
             value={image}
             onChange={(e)=>  setImage(e.target.value)}  />
           </label>
+          {/* adding preview of image here */}
+          <p className={styles.preview_title}  >PREVIEW DA IMAGEM</p>
+          <img className={styles.preview_img}  src={post.image} />
            
           <label>
            <span>Conteúdo:</span>  
@@ -124,8 +127,8 @@ const EditPost = () => {
             value={tags}
             onChange={(e)=>  setTags(e.target.value)}  />
           </label> 
-          <p className={styles.preview_title}  >PREVIEW DA IMAGEM</p>
-          <img className={styles.preview_img}  src={post.image} />
+          
+          
          
           {!response.loading && <button className='btn' >Editar</button>}
            
