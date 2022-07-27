@@ -1,0 +1,18 @@
+.edite_post {
+    text-align: center;
+}
+.edite_post h2 {
+    font-size: 2.2em;
+}
+.edite_post p {
+    color: #aaa;
+}
+
+.edite_post  .preview_title {
+margin-bottom: .2em;
+color:#000;
+font-weight: bold;
+}
+.preview_img{
+    max-width: 100%;
+}
