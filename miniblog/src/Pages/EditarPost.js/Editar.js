@@ -4,7 +4,7 @@ import styles from  "./editar.module.css"
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { useAuthValue } from '../../context/Authcontext'
-import { useInsertDocument } from '../../hoock/useinsertDocument'
+import { useUpdateDocument } from '../../hoock/useUpdatingDocument'
 
 import { useFecthingDocument } from '../../hoock/useFecthDocuments'
 
@@ -36,7 +36,7 @@ const EditPost = () => {
 
 
 
-   const { insertDocument,response } = useInsertDocument("posts") 
+   const {UpdateMoreDocumet,response } = useUpdateDocument("posts") 
    const {user} = useAuthValue()
    
    const navigate = useNavigate()
@@ -61,18 +61,20 @@ const EditPost = () => {
     }
     if(formError) return;
     
+     
+    const data = {
+      title, 
+      image,
+      body ,
+      tags:tagsArrays,
+      uid:user.uid,
+      createdBy: user.displayName
+    }
 
-    insertDocument({
-     title, 
-     image,
-     body ,
-     tags:tagsArrays,
-     uid:user.uid,
-     createdBy: user.displayName,
-    })
+    UpdateMoreDocumet(id,data)
    
     //reminder latter redirect to home page!!
-    navigate("/")   
+    navigate("/dashboard")   
   
    }
 
