@@ -4,17 +4,27 @@ import { Link } from 'react-router-dom'
 
 import { useAuthValue } from '../../context/Authcontext'
 import { useFecthingDocuments } from '../../hoock/useFecthingdocuments'
-
+import { useDeletecDoc } from '../../hoock/useDeleteDocument'
 
 
 const Dashboard = () => {
+   //deleted users posts
+    const {DeletedDocument} = useDeletecDoc("posts")  
+
     // get post of users!!!
     const{user} = useAuthValue()
     const uid = user.uid 
-    const {documents:posts, loading} =useFecthingDocuments('posts', null, uid)
-  
-    console.log('test in dash', posts)
     
+    const {documents:posts, loading} =useFecthingDocuments('posts', null, uid)
+    console.log('test in dash', posts)
+
+    if(loading){
+      return <p>Carregando Posts .....</p>
+    }
+    
+    
+    
+
 
 
     return(<div className={styles.dashcontainer} >
@@ -29,11 +39,29 @@ const Dashboard = () => {
         <Link to={'/posts/create'} className='btn' >Criar Primeiro post.</Link>  
        </div>  )  
         : 
-        (<div>
-          <p>Tem posts aqui </p>  
-        </div> ) }
+        (<> 
+          <div className={styles.post_header} > 
+            <span>Título</span>
+            <span>Ações</span>
+          </div>  
+          
+         {posts && posts.map((post) => ( <div key={post.id} className={styles.post_row} >
+           <p>{post.title}</p>
+          
+           <div>
+            <Link to={`/posts/${post.id}`} className='btn btn-outline'  >Ver</Link>
+
+            <Link to={`/posts/edit/${post.id}`}  className='btn btn-outline' >Editar.</Link>
+           
+           <button  onClick={() => DeletedDocument(post.id)}   
+           className='btn btn-outline btn-danger '
+            >Excluir.</button>
+           
+           </div>
+         </div>)
+            )}
+        </>) }
          
-         {posts && posts.map((post) => (<h2 > {post.title} </h2>)) }
 
     </div>)
 }
