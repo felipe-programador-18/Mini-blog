@@ -16,6 +16,7 @@ import CreatePost from './Pages/Createpost/createpost';
 import Dashboard from './Pages/Dashboards/dashboards';
 import SearchDates from './Pages/Search/search';
 import IndPosts from './Pages/Post/post';
+import EditPost from './Pages/EditarPost.js/Editar';
 
 
 
@@ -61,6 +62,9 @@ function App() {
           <Route path='/login'  element={ !user ? <Login/> : <Navigate to='/'/> } /> 
             
            
+
+          <Route path='/posts/edit/:id' element={ user ? <EditPost/> :  <Navigate to='/login' /> }  />
+
 
           <Route path='/posts/create' element={ user ? <CreatePost/> :  <Navigate to='/login' /> }  />
 
