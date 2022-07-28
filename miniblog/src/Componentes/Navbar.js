@@ -20,7 +20,7 @@ const Navbar = () => {
       
       <ul className={styles.links_list} >
         <li>
-         <NavLink to='/' className={({isActive}) => (isActive ? styles.active : '' ) } > Home</NavLink>     
+         <NavLink to='/' className={({isActive}) =>(isActive ? styles.active : '' ) } > Home</NavLink>     
         </li>
          
          {/* here i can very that user not stay loggin in the page */}
