@@ -3,12 +3,22 @@ import  styles from './login.module.css'
 import React,{useState, useEffect} from 'react'
 import { useAutentication } from '../hoock/useAuthentication'
 
+import { singInWithGooglePopup } from '../Callfirebase/firebase'
+
 
 const Login = () => {
  const [email, setEmail] = useState("")
  const [password, setPassword] = useState("")
  const [error, setError] = useState("")
-  
+ 
+ 
+ const LoginGoogle = async () => {
+   const response = await singInWithGooglePopup()
+   console.log('Entrando com google account',response);
+ }
+
+
+
  // this properties is destructment about my persolaties hoock!
  const {login,error:authError, loading} = useAutentication()
  
@@ -61,7 +71,8 @@ const Login = () => {
            value={password} 
            onChange={(e) => setPassword(e.target.value)} />
         </label>
-
+             
+            {!loading && <button onClick={LoginGoogle}  className='btn' >Entrar com google ?</button> }  
     
            {!loading && <button className='btn' >Entrar</button> }
            
