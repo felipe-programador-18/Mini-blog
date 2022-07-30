@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app";
 import {getFirestore} from 'firebase/firestore'
 
+// testing sing in with google account!!
+import { getAuth, signInWithRedirect ,signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,3 +20,13 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app)
 export {db}
+
+
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+    prompt:"select_account"
+})
+
+
+export const auth = getAuth();
+export const singInWithGooglePopup= () => signInWithPopup(auth, provider)  
