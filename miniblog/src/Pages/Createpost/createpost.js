@@ -14,7 +14,7 @@ const CreatePost = () => {
     
    const { insertDocument,response } = useInsertDocument("posts") 
    const {user} = useAuthValue()
-   
+   console.log('user about create', user)
    const navigate = useNavigate()
   
    //const {createUser,error:authError, loading} = useAutentication()
@@ -91,7 +91,7 @@ const CreatePost = () => {
           <label >
             <span>Tags:</span>
             <input type='text' 
-            name='Imagem' 
+            name='tags' 
             required 
             placeholder='Insira as tags separadas por vírgulas.' 
             value={tags}
