@@ -14,12 +14,12 @@ const Dashboard = () => {
     // get post of users!!!
     const{user} = useAuthValue()
     const uid = user.uid 
-    
+
     const {documents:posts, loading} =useFecthingDocuments('posts', null, uid)
-    console.log('test in dash', posts)
+
 
     if(loading){
-      return <p>Carregando Posts .....</p>
+       <p>Carregando Posts .....</p>
     }
     
     
