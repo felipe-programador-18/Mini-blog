@@ -7,12 +7,12 @@ import { getAuth, signInWithRedirect ,signInWithPopup, GoogleAuthProvider } from
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBbc7EyCJPQtrKlxy9r2h3PySoIfmoA3WU",
-  authDomain: "mini-blog-a74af.firebaseapp.com",
-  projectId: "mini-blog-a74af",
-  storageBucket: "mini-blog-a74af.appspot.com",
-  messagingSenderId: "463884436374",
-  appId: "1:463884436374:web:8c5380258d2672c8a4d3b7"
+  apiKey: "AIzaSyBmwsOnUkUP5HIkwe-0_QIrNnVY6LUd7gs",
+  authDomain: "another-test-c0a5c.firebaseapp.com",
+  projectId: "another-test-c0a5c",
+  storageBucket: "another-test-c0a5c.appspot.com",
+  messagingSenderId: "877321056285",
+  appId: "1:877321056285:web:79776bb1635576dec396f4"
 };
 
 // Initialize Firebase
