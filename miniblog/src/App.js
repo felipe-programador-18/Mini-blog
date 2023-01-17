@@ -17,34 +17,68 @@ import Dashboard from './Pages/Dashboards/dashboards';
 import SearchDates from './Pages/Search/search';
 import IndPosts from './Pages/Post/post';
 import EditPost from './Pages/EditarPost.js/Editar';
+import { FavoriteProvider } from './context/Anotercontext';
 
 
 
 
-
+const favoritesKey = 'favorites'
 
 function App() {
   const [user, setUser] = useState(undefined)
   const {auth} = useAutentication()
   const loadingUser = user === undefined
   
+  const [favorites, setfavorites] = useState([])
+  
+  
+
   console.log('testet here', user)
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setUser(user)
+     
     })
   },[auth])
+   
+  const loadingFavorites = () => {
+    const savePokemon= JSON.parse(window.localStorage.getItem(favoritesKey)) || []
+    setfavorites(savePokemon)
+   }
+ 
+  useEffect(() => {
+   loadingFavorites()
+  },[])
  
   if(loadingUser){
     return <p>Loading ....</p>
   }
+
+  const updateFavoritePokemons = (name) => {
+    //create variable to caught all data with spring operator!!! 
+    const updateFavorited = [...favorites]
+    const favoritesIndex = favorites.indexOf(name)
+    if(favoritesIndex >= 0){
+      updateFavorited.splice(favoritesIndex,1) 
+    }else{
+      updateFavorited.push(name)
+    }
+    window.localStorage.setItem(favoritesKey, JSON.stringify(updateFavorited))
+    setfavorites(updateFavorited)
+   }  
+
 
 
 
 
   return (
     <div className="App">
-    <AuthProvider value={{user}} >
+    <AuthProvider value={{user}}>
+
+      <FavoriteProvider 
+        value={{
+        favoritepokemons:favorites, updatingpokemons:updateFavoritePokemons
+         }}>  
      <BrowserRouter>
       <Navbar/> 
       
@@ -76,7 +110,7 @@ function App() {
        
       <Footer/>
      </BrowserRouter>
-    
+     </FavoriteProvider>
     </AuthProvider> 
     </div>
   );
