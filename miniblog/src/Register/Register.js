@@ -1,5 +1,8 @@
 import React,{useState, useEffect} from 'react'
 import { useAutentication } from '../hoock/useAuthentication'
+
+import { useNavigate } from 'react-router-dom'
+
 import  styles from './register.module.css'
 
 const Register =  () => {
@@ -12,6 +15,9 @@ const Register =  () => {
  // this properties is destructment about my persolaties hoock!
  const {createUser,error:authError, loading} = useAutentication()
  
+  
+ const navigate = useNavigate()
+
  // this care about send date!
  const handlingSubmit = async (e) => {
     e.preventDefault()
@@ -28,7 +34,7 @@ const Register =  () => {
     }
     
     const res = await  createUser(user)
-    
+     navigate('/login')
     console.log(user)
 
  }

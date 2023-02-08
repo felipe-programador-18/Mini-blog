@@ -31,7 +31,16 @@ function App() {
   
   const [favorites, setfavorites] = useState([])
   
+  const loadingFavorites = () => {
+    const savePokemon= 
+     JSON.parse(window.localStorage.getItem(favoritesKey)) || []
+    setfavorites(savePokemon)
+   }
   
+   useEffect(() => {
+   loadingFavorites()
+  },[])
+
 
   console.log('testet here', user)
   useEffect(() => {
@@ -41,15 +50,6 @@ function App() {
     })
   },[auth])
    
-  const loadingFavorites = () => {
-    const savePokemon= JSON.parse(window.localStorage.getItem(favoritesKey)) || []
-    setfavorites(savePokemon)
-   }
- 
-  useEffect(() => {
-   loadingFavorites()
-  },[])
- 
   if(loadingUser){
     return <p>Loading ....</p>
   }
