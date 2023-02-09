@@ -34,7 +34,7 @@ const Register =  () => {
     }
     
     const res = await  createUser(user)
-     navigate('/login')
+  
     console.log(user)
 
  }
