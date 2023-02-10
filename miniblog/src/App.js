@@ -4,8 +4,6 @@ import TestingAnother from './TestingApp/Testing';
 
 
 function App() {
-
-  
   return (<>
   <TestingAnother/>
   </>)
