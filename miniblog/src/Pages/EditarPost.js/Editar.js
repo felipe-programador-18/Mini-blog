@@ -123,7 +123,7 @@ const EditPost = () => {
           <label >
             <span>Tags:</span>
             <input type='text' 
-            name='Imagem' 
+            name='Tags' 
             required 
             placeholder='Insira as tags separadas por vírgulas.' 
             value={tags}
@@ -131,7 +131,6 @@ const EditPost = () => {
           </label> 
           
           
-         
           {!response.loading && <button className='btn' >Editar</button>}
            
            {response.loading && (<button className='btn' disabled >
@@ -141,7 +140,7 @@ const EditPost = () => {
          {response.error && <p className='error' > {response.error} </p>}  
          {formError && <p className='error' > {formError} </p>}  
 
-           
+      
         
         </form>
 
