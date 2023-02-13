@@ -20,7 +20,7 @@ const Dashboard = () => {
     console.log('testing', heart)
 
     const {documents:posts, loading} =useFecthingDocuments('posts', null, uid)
-
+     console.log("testing my id", posts)
 
     if(loading){
        <p>Carregando Posts .....</p>
